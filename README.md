@@ -33,7 +33,7 @@ In the file 'models', there are different models including two-view marrnets. 2D
 
 ## Training Data
 
-For training, the original authors make available their RGB and 2.5D sketch renderings, paired with their corresponding 3D shapes, for ShapeNet cars, chairs, and airplanes, with each object captured in 20 random views. Note that this .tar is 143 GB. The dataset is based on ShapeNet.
+1. For training, the original authors make available their RGB and 2.5D sketch renderings, paired with their corresponding 3D shapes, for ShapeNet cars, chairs, and airplanes, with each object captured in 20 random views. Note that this .tar is 143 GB. The dataset is based on ShapeNet.
 	```
 	wget http://genre.csail.mit.edu/downloads/shapenet_cars_chairs_planes_20views.tar -P downloads/data/
 	mkdir downloads/data/shapenet/
