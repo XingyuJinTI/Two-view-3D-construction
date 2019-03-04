@@ -1,17 +1,9 @@
-# Generalizable Reconstruction (GenRe) and ShapeHD
+# Two View 3D construction
 
 
 ## Papers
 
 This is a repo covering the following three papers. If you find the code useful, please cite the paper(s).
-
-1. Generalizable Reconstruction (GenRe)<br/>
-**Learning to Reconstruct Shapes from Unseen Classes**<br/>
-[Xiuming Zhang](http://people.csail.mit.edu/xiuming/)&ast;, [Zhoutong Zhang](https://www.csail.mit.edu/person/zhoutong-zhang)&ast;, [Chengkai Zhang](https://www.csail.mit.edu/person/chengkai-zhang), [Joshua B. Tenenbaum](http://web.mit.edu/cocosci/josh.html), [William T. Freeman](https://billf.mit.edu/), and [Jiajun Wu](https://jiajunwu.com/)<br/>
-*NeurIPS 2018 (Oral)*<br/>
-[Paper](http://genre.csail.mit.edu/papers/genre_nips.pdf) &nbsp; | &nbsp; [BibTeX](http://genre.csail.mit.edu/bibtex/genre_nips.bib) &nbsp; | &nbsp; [Project](http://genre.csail.mit.edu/)
-
-	&ast; indicates equal contribution.
 
 1. ShapeHD<br/>
 **Learning Shape Priors for Single-View 3D Completion and Reconstruction**<br/>
@@ -124,13 +116,6 @@ This repo allows you to train your own models from scratch, possibly with data d
 python -m tensorboard.main --logdir="$logdir"/tensorboard
 ```
 to visualize your losses.
-
-### GenRe
-
-Follow these steps to train the GenRe model.
-1. Train the depth estimator with `scripts/train_marrnet1.sh`
-1. Train the spherical inpainting network with `scripts/train_inpaint.sh`
-1. Train the full model with `scripts/train_full_genre.sh`
 
 ### ShapeHD
 
