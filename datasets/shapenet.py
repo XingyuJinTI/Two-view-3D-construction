@@ -7,7 +7,7 @@ import util.util_img
 
 
 class Dataset(data.Dataset):
-    data_root = './downloads/data/shapenet'
+    data_root = './downloads/data/shapenet/'
     list_root = join(data_root, 'status')
     status_and_suffix = {
         'rgb': {
@@ -120,6 +120,7 @@ class Dataset(data.Dataset):
         assert len(item_list) == len(is_train)
 
         # Load status the network requires
+        '''
         has = {}
         for data_type in required:
             assert data_type in self.status_and_suffix.keys(), \
@@ -128,7 +129,57 @@ class Dataset(data.Dataset):
                 self.status_and_suffix[data_type]['status']
             )
             assert len(has[data_type]) == len(item_list)
+        '''
+        '''
+        TODO:
+        '''
+        # Load 
+        with open(join(self.list_root, 'items_unique.txt')) as f_shapes:
+            shape_lines = f_shapes.read()
+        item_unique_list = shape_lines.split('\n')[:-1]
+        is_train_unique = self.read_bool_status('is_train_unique.txt')
+        assert len(item_unique_list) == len(is_train_unique)
+        print(len(item_unique_list))
+        n_views = 20
+        # Pack paths into a dict
+        samples = []
+        for i, item in enumerate(item_unique_list):
+            class_id, _ = item.split('/')[:2]
+            item_in_split = ((self.mode == 'train') == is_train_unique[i])
+            if item_in_split and class_id in classes:
+                
+                for j1 in range(0, n_views):
+                    for j2 in range(0, j1):
+                        view1 = item + '_view' + str(j1).zfill(3)
+                        view2 = item + '_view' + str(j2).zfill(3)
 
+                        # Look up subclass_id for this item
+                        sample_dict1 = {'item': join(self.data_root, view1)}
+                        sample_dict2 = {'item': join(self.data_root, view2)}
+                        # As long as a type is required, it appears as a key
+                        # If it doens't exist, its value will be None
+                        for data_type in required:
+                            suffix = self.status_and_suffix[data_type]['suffix']
+                            k = data_type + '_path'
+                            if data_type == 'voxel_canon':
+                                # All different views share the same canonical voxel
+                                sample_dict1[k] = join(self.data_root, view1.split('_view')[0] + suffix) #\
+                                #    if has[data_type][i] else None
+                                # Only need voxel from the first view (both should be the same)
+                                #sample_dict2[k] = join(self.data_root, view2.split('_view')[0] + suffix) \
+                                #    if has[data_type][i] else None
+                            else:
+                                sample_dict1[k] = join(self.data_root, view1 + suffix) #\
+#                                    if has[data_type][i] else None
+                                sample_dict2[k] = join(self.data_root, view2 + suffix) #\
+#                                    if has[data_type][i] else None
+                        if None not in sample_dict1.values() and None not in sample_dict2.values():
+                            # All that are required exist
+                            samples.append([sample_dict1, sample_dict2])
+        
+#        print(samples)
+        
+        '''
         # Pack paths into a dict
         samples = []
         for i, item in enumerate(item_list):
@@ -152,7 +203,7 @@ class Dataset(data.Dataset):
                 if None not in sample_dict.values():
                     # All that are required exist
                     samples.append(sample_dict)
-
+        '''
         # If validation, dataloader shuffle will be off, so need to DETERMINISTICALLY
         # shuffle here to have a bit of every class
         if self.mode == 'vali':
@@ -165,30 +216,34 @@ class Dataset(data.Dataset):
 
     def __getitem__(self, i):
         sample_loaded = {}
-        for k, v in self.samples[i].items():
-            sample_loaded[k] = v  # as-is
-            if k.endswith('_path'):
-                if v.endswith('.png'):
-                    im = util.util_img.imread_wrapper(
-                        v, util.util_img.IMREAD_UNCHANGED,
-                        output_channel_order='RGB')
-                    # Normalize to [0, 1] floats
-                    im = im.astype(float) / float(np.iinfo(im.dtype).max)
-                    sample_loaded[k[:-5]] = im
-                elif v.endswith('.npy'):
-                    # Right now .npy must be depth_minmax
-                    sample_loaded['depth_minmax'] = np.load(v)
-                elif v.endswith('_128.npz'):
-                    sample_loaded['voxel'] = np.load(v)['voxel'][None, ...]
-                elif v.endswith('_spherical.npz'):
-                    spherical_data = np.load(v)
-                    sample_loaded['spherical_object'] = spherical_data['obj_spherical'][None, ...]
-                    sample_loaded['spherical_depth'] = spherical_data['depth_spherical'][None, ...]
-                elif v.endswith('.mat'):
-                    # Right now .mat must be voxel_canon
-                    sample_loaded['voxel_canon'] = loadmat(v)['voxel'][None, ...]
+        for view_i, view_dict in enumerate(self.samples[i]):
+            view_number = view_i + 1
+            for k, v in view_dict.items():
+                if k.endswith('_path'):
+                    sample_loaded[k[:-5] + str(view_number) + '_path'] = v
+                    if v.endswith('.png'):
+                        im = util.util_img.imread_wrapper(
+                            v, util.util_img.IMREAD_UNCHANGED,
+                            output_channel_order='RGB')
+                        # Normalize to [0, 1] floats
+                        im = im.astype(float) / float(np.iinfo(im.dtype).max)
+                        sample_loaded[k[:-5] + str(view_number)] = im
+                    elif v.endswith('.npy'):
+                        # Right now .npy must be depth_minmax
+                        sample_loaded['depth_minmax' + str(view_number)] = np.load(v)
+                    elif v.endswith('_128.npz'):
+                        sample_loaded['voxel' + str(view_number)] = np.load(v)['voxel'][None, ...]
+                    elif v.endswith('_spherical.npz'):
+                        spherical_data = np.load(v)
+                        sample_loaded['spherical_object' + str(view_number)] = spherical_data['obj_spherical'][None, ...]
+                        sample_loaded['spherical_depth' + str(view_number)] = spherical_data['depth_spherical'][None, ...]
+                    elif v.endswith('.mat'):
+                        # Right now .mat must be voxel_canon
+                        sample_loaded['voxel_canon'] = loadmat(v)['voxel'][None, ...]
+                    else:
+                        raise NotImplementedError(v)
                 else:
-                    raise NotImplementedError(v)
+                    sample_loaded[k + str(view_number)] = v
             # Three identical channels for grayscale images
         if self.preproc is not None:
             sample_loaded = self.preproc(sample_loaded, mode=self.mode)

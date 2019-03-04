@@ -75,7 +75,7 @@ class MarrnetBaseModel(NetInterface):
         """
         data_proc = {}
         for key, val in data.items():
-            if key == 'rgb':
+            if key.startswith('rgb') and not key.endswith('_path'):
                 im = val
                 # H x W x 3
                 im = util.util_img.resize(im, cls.im_size, 'horizontal')
@@ -91,7 +91,7 @@ class MarrnetBaseModel(NetInterface):
                 im = util.util_img.normalize_colors(im)
                 val = im.transpose(2, 0, 1)
 
-            elif key == 'depth':
+            elif key.startswith('depth') and not key.endswith('_path'):
                 im = val
                 if im.ndim == 3:
                     im = im[:, :, 0]
@@ -101,7 +101,7 @@ class MarrnetBaseModel(NetInterface):
                 val = im[np.newaxis, :, :]
                 # 1 x H x W, scaled
 
-            elif key == 'silhou':
+            elif key.startswith('silhou') and not key.endswith('_path'):
                 im = val
                 if im.ndim == 3:
                     im = im[:, :, 0]
@@ -113,7 +113,7 @@ class MarrnetBaseModel(NetInterface):
                 val = im[np.newaxis, :, :]
                 # 1 x H x W, binarized, scaled
 
-            elif key == 'normal':
+            elif key.startswith('normal') and not key.endswith('_path'):
                 # H x W x 3
                 im = val
                 im = util.util_img.resize(

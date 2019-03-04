@@ -6,3 +6,13 @@
 
 code_test
 private
+
+downloads/models/
+
+!downloads/data/shapenet/
+downloads/data/shapenet/*
+!downloads/data/shapenet/status/
+
+*.out
+
+output/
