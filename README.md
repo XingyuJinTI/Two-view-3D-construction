@@ -1,7 +1,7 @@
 # Two View 3D construction
 
 ## Fork from https://github.com/xiumingzhang/GenRe-ShapeHD
-In order to extend the MarrNet architecture to take twoviews of the same object as input, we maintain the archi-tecture of 2.5D sketch estimator and modify 3D shape es-timator to be able to input the two stacked 2.5D sketches. Several fusion strategies are experimented.
+In order to extend the MarrNet architecture to take two views of the same object as input, we maintain the architecture of 2.5D sketch estimator and modify 3D shape estimator to be able to input the two stacked 2.5D sketches. Several fusion strategies are experimented.
 
 ## Environment Setup
 
@@ -34,6 +34,7 @@ All code was built and tested on Ubuntu 16.04.5 LTS with Python 3.6, PyTorch 0.4
   journal={Cambridge, Massachusetts},
   year={1982}
 }
+
 @article{deepfuse,
   author    = {K. Ram Prabhakar and
                V. Sai Srikar and
@@ -58,5 +59,11 @@ All code was built and tested on Ubuntu 16.04.5 LTS with Python 3.6, PyTorch 0.4
   archivePrefix = {arXiv}
 }
 
-
+## Citation
+@inproceedings{stgcn2018aaai,
+  title     = {Spatial Temporal Graph Convolutional Networks for Skeleton-Based Action Recognition},
+  author    = {Sijie Yan and Yuanjun Xiong and Dahua Lin},
+  booktitle = {AAAI},
+  year      = {2018},
+}
 
