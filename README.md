@@ -1,7 +1,9 @@
 # Two View 3D construction
 
-## Fork from https://github.com/xiumingzhang/GenRe-ShapeHD
-In order to extend the MarrNet architecture to take two views of the same object as input, we maintain the architecture of 2.5D sketch estimator and modify 3D shape estimator to be able to input the two stacked 2.5D sketches. Several fusion strategies are experimented.
+## Fork from ShapeHD and original single-view MarrNet is our Baseline
+In order to extend the MarrNet architecture to take two views of the same object as input, we maintain the architecture of 2.5D sketch estimator and modify 3D shape estimator to be able to input the two stacked 2.5D sketches. Several fusion strategies are experimented. More information about original MarrNet, please visit https://github.com/xiumingzhang/GenRe-ShapeHD
+
+If we successfully see an improvement in two-view MarrNet, this fusion strategy is able to applied to ShapeHD and GenRe as well, which is my future work.
 
 ## Environment Setup
 
@@ -23,6 +25,19 @@ All code was built and tested on Ubuntu 16.04.5 LTS with Python 3.6, PyTorch 0.4
 1. The instructions below assume you have activated this environment with
 	```
 	source activate shaperecon
+	```
+
+## Models for two-view MarrNet
+
+In the file 'models', there are different models including two-view marrnets. 2D feature maps of images are fused by concatenation, addition, Max. In addition, we are doing the experiment on the different fusion strategies on Latent Vector level: concatenating two 200-dim vector into one 400-dim, concatenating them parallel (i.e. 2x200 dim) followed by 1 Conv layer or Multi-CNN.
+
+## Training Data
+
+For training, the original authors make available their RGB and 2.5D sketch renderings, paired with their corresponding 3D shapes, for ShapeNet cars, chairs, and airplanes, with each object captured in 20 random views. Note that this .tar is 143 GB. The dataset is based on ShapeNet.
+	```
+	wget http://genre.csail.mit.edu/downloads/shapenet_cars_chairs_planes_20views.tar -P downloads/data/
+	mkdir downloads/data/shapenet/
+	tar -xvf downloads/data/shapenet_cars_chairs_planes_20views.tar -C downloads/data/shapenet/
 	```
 
 ## Citation
