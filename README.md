@@ -58,12 +58,3 @@ All code was built and tested on Ubuntu 16.04.5 LTS with Python 3.6, PyTorch 0.4
   url       = {http://arxiv.org/abs/1804.02767},
   archivePrefix = {arXiv}
 }
-
-## Citation
-@inproceedings{stgcn2018aaai,
-  title     = {Spatial Temporal Graph Convolutional Networks for Skeleton-Based Action Recognition},
-  author    = {Sijie Yan and Yuanjun Xiong and Dahua Lin},
-  booktitle = {AAAI},
-  year      = {2018},
-}
-
