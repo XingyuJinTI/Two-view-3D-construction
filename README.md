@@ -1,4 +1,6 @@
-# Two View 3D construction （In progress: implementing IOU for evaluation. Will report the final results in March/2019）
+# Two View 3D construction 
+In progress: implementing IOU for evaluation. Will report the final results by the end March/2019.
+This is a MLP team work with BHUMIWAT Mek and GENG Siqing.
 
 ## Fork from ShapeHD and original single-view MarrNet is our Baseline
 In order to extend the MarrNet architecture to take two views of the same object as input, we maintain the architecture of 2.5D sketch estimator and modify 3D shape estimator to be able to input the two stacked 2.5D sketches. Several fusion strategies are experimented. More information about original MarrNet, please visit https://github.com/xiumingzhang/GenRe-ShapeHD
