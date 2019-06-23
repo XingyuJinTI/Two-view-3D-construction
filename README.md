@@ -1,5 +1,7 @@
 # Two View 3D construction 
-（In progress）
+Won the first place of IBM Student Prize for Machine Learning.
+
+Note: this is not the final version of the project. 
 
 ## Fork from ShapeHD and original single-view MarrNet is our Baseline
 In order to extend the MarrNet architecture to take two views of the same object as input, we maintain the architecture of 2.5D sketch estimator and modify 3D shape estimator to be able to input the two stacked 2.5D sketches. Several fusion strategies are experimented. More information about original MarrNet, please visit https://github.com/xiumingzhang/GenRe-ShapeHD
