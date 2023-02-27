@@ -1,12 +1,15 @@
 # Two View 3D construction 
 Won the first place of IBM Student Prize for Machine Learning.
 
-Note: this is not the final version of the project. 
+![Two View MarrNet Architecture](/assets/Two_View_MarrNet.png)
+
+Note: this is not the [final algorithm](https://github.com/Xingyu-Jin/DeepView3D) that won the prize but only an intermediate experimental architecture to understand if two-view fusion can really make an improvement as we expected.
 
 ## Fork from ShapeHD and original single-view MarrNet is our Baseline
 In order to extend the MarrNet architecture to take two views of the same object as input, we maintain the architecture of 2.5D sketch estimator and modify 3D shape estimator to be able to input the two stacked 2.5D sketches. Several fusion strategies are experimented. More information about original MarrNet, please visit https://github.com/xiumingzhang/GenRe-ShapeHD
 
-If we successfully see an improvement in two-view MarrNet, this fusion strategy is able to applied to ShapeHD and GenRe as well, which is my future work.
+The improvement show in two-view MarrNet is generalisable fusion strategy which can also be applied to ShapeHD and GenRe as well.
+
 
 ## Environment Setup
 
