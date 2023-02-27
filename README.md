@@ -1,14 +1,18 @@
 # Two View 3D construction 
-Won the first place of IBM Student Prize for Machine Learning.
 
-![Two View MarrNet Architecture](/assets/Two_View_MarrNet.png)
+## Introduction
 
-Note: this is not the [final algorithm](https://github.com/Xingyu-Jin/DeepView3D) that won the prize but only an intermediate experimental architecture to understand if two-view fusion can really make an improvement as we expected.
+We extend the MarrNet architecture to take two views of the same object as input. To do so, we maintain the architecture of 2.5D sketch estimator and modify 3D shape estimator to be able to input the two stacked 2.5D sketches. Several fusion strategies are experimented. More information about original MarrNet, please visit https://github.com/xiumingzhang/GenRe-ShapeHD
 
-## Fork from ShapeHD and original single-view MarrNet is our Baseline
-In order to extend the MarrNet architecture to take two views of the same object as input, we maintain the architecture of 2.5D sketch estimator and modify 3D shape estimator to be able to input the two stacked 2.5D sketches. Several fusion strategies are experimented. More information about original MarrNet, please visit https://github.com/xiumingzhang/GenRe-ShapeHD
+This is an intermediate experimental architecture to understand if two-view fusion can really make an improvement as we expected. Please visit [DeepView](https://github.com/Xingyu-Jin/DeepView3D) for the final algorithm that won the first place of IBM Prize for Machine Learning. 
 
-The improvement show in two-view MarrNet is generalisable fusion strategy which can also be applied to ShapeHD and GenRe as well.
+## Architecture 
+
+### Two View MarrNet Architecture
+
+<img src="/assets/Two_View_MarrNet.png" width="600">
+
+Note: this is not the final algorithm [DeepView](https://github.com/Xingyu-Jin/DeepView3D) that won the prize but only 
 
 
 ## Environment Setup
@@ -45,6 +49,22 @@ In the file 'models', there are different models including two-view marrnets. 2D
 	mkdir downloads/data/shapenet/
 	tar -xvf downloads/data/shapenet_cars_chairs_planes_20views.tar -C downloads/data/shapenet/
 	```
+## Results
+
+### Quantitive result
+
+<img src="/assets/results.png" width="330">
+
+Two-View MarrNet with each kind of the fusion layer can achieve a higher IoU than the baseline model (MarrNet).
+
+### Qualitive result
+
+<img src="/assets/visualisation.png" width="400">
+
+Two-View Marrnet is able to generate more complete with more details and higher accuracy than MarrNet.
+
+Note, the improvement shown in two-view MarrNet is generalisable fusion strategy which can also be applied to ShapeHD and GenRe as well.
+
 
 ## Citation
 
